@@ -11,8 +11,6 @@ Lucas Fiorotti Valim 10746686
 
 Heloísa Vargas Megda de Oliveira 9912869
 
-Heloisa Vargas
-
 ## 1. TEMA
 
 1.1 O projeto visa o aprendizado de implementação da conexão com uma interface para operação com envio de instruções de comando, recepção e apresentação de estado do equipamento.
