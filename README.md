@@ -6,6 +6,7 @@ Projeto : IHM para braço robótico de reabilitação.
 
 
 Daniela Ramos Luz 10883832 
+Lucas Fiorotti Valim 10746686
 
 ## 1. TEMA
 
