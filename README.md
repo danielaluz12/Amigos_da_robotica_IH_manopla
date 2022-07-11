@@ -17,7 +17,7 @@ Heloísa Vargas Megda de Oliveira 9912869
 
 A ideia é que a interface à qual o user tem acesso seja capaz de enviar comandos e receber estados de posição, velocidade e torque do motor da manopla robótica, abaixo segue um diagrama para melhor explicar o projeto e o fluxo:
 
-![image](https://user-images.githubusercontent.com/71453516/177665929-06410537-126c-4525-b3f2-101160baf363.png)
+![image](https://user-images.githubusercontent.com/71453516/178264879-b111086c-18f2-494c-9c11-9ecd43df2136.png)
 
 Como pode ser visto acima a ideia que o usuário na interface gráfica rodando no Host consiga enviar comandos de posições e receber estados do motor da manopla. A comunicação entre o host com a interface gráfica e o sistema embarcado(toradéx) é feita através de um cabo ethernet com comunicação socket e protocolo de comunicação TCP-IP. A ideia é que no host,juntamente com a interface gráfica, rode um socket client para receber e enviar mensagens para o socket server que ficará na Toradéx. A toradéx além de comportar o server, se comunica com o motor da manopla por comunicação, enviando os comandos de posição para o motor e recebendo os estados do enconder.
 
