@@ -228,7 +228,7 @@ while(1)
     }
 ```
     
-## Testes e adpatações
+## 3. Testes e adpatações
 
 Como foi comentado acima adpatações foram feitas para que o client pudesse rodar em python enquanto o server rodasse em c++, devido a questões de Cross-compile na toradéx.
 
