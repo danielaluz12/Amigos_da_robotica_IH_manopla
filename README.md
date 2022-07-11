@@ -21,6 +21,8 @@ A ideia é que a interface à qual o user tem acesso seja capaz de enviar comand
 
 Como pode ser visto acima a ideia que o usuário na interface gráfica rodando no Host consiga enviar comandos de posições e receber estados do motor da manopla. A comunicação entre o host com a interface gráfica e o sistema embarcado(toradéx) é feita através de um cabo ethernet com comunicação socket e protocolo de comunicação TCP-IP. A ideia é que no host,juntamente com a interface gráfica, rode um socket client para receber e enviar mensagens para o socket server que ficará na Toradéx. A toradéx além de comportar o server, se comunica com o motor da manopla por comunicação, enviando os comandos de posição para o motor e recebendo os estados do enconder.
 
+### obs: A comunicação CAN e a integração com o motor não faz parte do escopo deste trabalho
+
 ## 2. CONFECÇÃO
 
 ## FRONT-END DA INTERFACE
