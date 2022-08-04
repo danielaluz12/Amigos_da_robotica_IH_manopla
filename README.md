@@ -2,7 +2,7 @@
 
 Repositório do projeto de Sistemas embarcados - Primeiro semestre de 2022.
 
-Projeto : IHM para braço robótico de reabilitação.
+**Projeto:** IHM para braço robótico de reabilitação.
 
 
 Daniela Ramos Luz 10883832 
@@ -13,41 +13,41 @@ Heloísa Vargas Megda de Oliveira 9912869
 
 ## 1. TEMA
 
-1.1 O projeto visa o aprendizado de implementação da conexão com uma interface para operação com envio de instruções de comando, recepção e apresentação de estado do equipamento.
+O projeto visa o aprendizado da implementação da conexão com uma interface para operação com envio de instruções de comando, recepção e apresentação de estado do equipamento.
 
-A ideia é que a interface à qual o user tem acesso seja capaz de enviar comandos e receber estados de posição, velocidade e torque do motor da manopla robótica, abaixo segue um diagrama para melhor explicar o projeto e o fluxo:
+A ideia é que a interface na qual o user tem acesso seja capaz de enviar comandos e receber estados de posição, velocidade e torque do motor da manopla robótica. Abaixo segue um diagrama para melhor explicar o projeto e o fluxo:
 
 ![image](https://user-images.githubusercontent.com/71453516/178264879-b111086c-18f2-494c-9c11-9ecd43df2136.png)
 
-Como pode ser visto acima a ideia que o usuário na interface gráfica rodando no Host consiga enviar comandos de posições e receber estados do motor da manopla. A comunicação entre o host com a interface gráfica e o sistema embarcado(toradéx) é feita através de um cabo ethernet com comunicação socket e protocolo de comunicação TCP-IP. A ideia é que no host,juntamente com a interface gráfica, rode um socket client para receber e enviar mensagens para o socket server que ficará na Toradéx. A toradéx além de comportar o server, se comunica com o motor da manopla por comunicação, enviando os comandos de posição para o motor e recebendo os estados do enconder.
+Como pode ser visto acima, a ideia é que o usuário, por meio da interface gráfica rodando no Host, consiga enviar comandos de posições e receber estados do motor da manopla. A comunicação entre a interface gráfica do Host e o sistema embarcado (toradéx) é feita através de um cabo ethernet com comunicação socket e protocolo de comunicação TCP-IP. A ideia é que no host, juntamente com a interface gráfica, rode um socket client para receber e enviar mensagens para o socket server que ficará na Toradéx. A toradéx além de comportar o server, se comunica com o motor da manopla, enviando os comandos de posição para o motor e recebendo os estados do enconder.
 
-### Obs: A comunicação CAN e a integração com o motor não faz parte do escopo deste trabalho
+#### Obs: A comunicação CAN e a integração com o motor não faz parte do escopo deste trabalho
 
 ## 2. CONFECÇÃO
 
-## FRONT-END DA INTERFACE
+### *FRONT-END* DA INTERFACE
 
-Primeiramente podemos entender um poUquinho sobre a interface gráfica que pode ser vista abaixo:
+A interface gráfica desenvolvida pode ser vista abaixo:
 
 ![image](https://user-images.githubusercontent.com/71453516/177666702-103cbffb-bc77-4fb0-ab36-21fd07732e08.png)
 
-A interface foi construída usando o Qt Designer para o criar o arquivo 'interface.ui' que foi construído utilizando elementos do Qt Designer que facilitam integração com python para envio e recebimento de dados no back-end.
+A interface foi construída usando o Qt Designer para o criar o arquivo 'interface.ui' que foi construído utilizando elementos do Qt Designer que facilitam a integração com python para envio e recebimento de dados no *back-end*.
 
 Alguns exemplos:
 
-## QlineEdit: input de informação do user
+#### QlineEdit: input de informação do user
 
 ![image](https://user-images.githubusercontent.com/71453516/177667333-d0fa60b2-4c9d-4dcf-99c1-e3491919f0a5.png)
 
-## QPushButton: literalmente um botão de estado para triggar um evento
+#### QPushButton: literalmente um botão de estado para triggar um evento
 
 ![image](https://user-images.githubusercontent.com/71453516/177667431-c9bffbcb-8a5d-4584-a3b3-646ade44b8ec.png)
 
-## QLCDNumber: display para mostrar informação recebida
+#### QLCDNumber: display para mostrar informação recebida
 
 ![image](https://user-images.githubusercontent.com/71453516/177667558-182bedc7-c09f-40bf-a030-cb9d1cfd6e2a.png)
 
-O Qt Designer utiliza linguagem html para criar um arquivo de descrição da MainWindows da interface com todos os elementos presentes, seus nomes, tipos de elemento do Qt Designer,suas cores e outras propriedades como cores e tamanho como pode ser visto no snippet do arquivo Interface.ui abaixo :
+O Qt Designer utiliza linguagem html para criar um arquivo de descrição da *MainWindow* da interface com todos os elementos presentes, assim como seus nomes, tipos de elemento do Qt Designer, suas cores e outras propriedades como tamanho, como pode ser visto no snippet do arquivo Interface.ui abaixo:
 
 ```bash
 <?xml version="1.0" encoding="UTF-8"?>
@@ -90,13 +90,13 @@ O Qt Designer utiliza linguagem html para criar um arquivo de descrição da Mai
 
 Observe que há uma Main Window abaixo da qual ficam todos os widgets com suas propriedades e atributos.
 
-## BACK-END DA INTERFACE
+### *BACK-END* DA INTERFACE
 
-Para confeccionar o a lógica por trás da interface foi usado python e a biblioteca PyQt5 que facilita imensamente a utilização dos widgets padrão do QT Designer que foram mencionados anteriormente.
+Para confeccionar a lógica por trás da interface foi usado python e a biblioteca PyQt5 que facilita imensamente a utilização dos widgets padrão do QT Designer mencionados anteriormente.
 
-Abaixo seguem alguns de como é feita a inicialização e utilização dos widgets usando a  PyQt5.
+Abaixo seguem alguns de como é feita a inicialização e utilização dos widgets usando PyQt5.
 
-Primeira é criada uma classe que contará com o objetos de cada tipo de widget
+Primeiro é criada uma classe que contará com os objetos de cada tipo de widget:
 
 ```bash
 class Ui(QtWidgets.QMainWindow):
@@ -145,9 +145,9 @@ def sendButtonPressed(self):
 
 Usando essas três funcionalidades do biblioteca fizemos a conexão da interface com as mensagens enviadas/recebidas por conexão socket.
     
-## COMUNICAÇÃO SOCKET
+### COMUNICAÇÃO SOCKET
 
-Para comunicação socket o cliente foi implementado em python usando para poder ser implementado no mesmo script da interface principal main_window_client.py, um snippet pode ser visto abaixo:
+Para comunicação socket, o cliente foi implementado em python para que fosse possível ser implementado no mesmo script da interface principal main_window_client.py. Um snippet pode ser visto abaixo:
 
 ```bash
 
@@ -179,9 +179,9 @@ Para comunicação socket o cliente foi implementado em python usando para poder
         self.output_torque.display(split_msg[2])
 ```
 
-O código acima basicamente recebe IP e porta da interface e para fazer o conect do client com o host.
+O código acima recebe o IP e a porta da interface para fazer o connect do client com o host.
 
-Para o server a ideia também era fazer a programaçõe em Python, mas devidos a questões de cross-compile foi utilizado c++, um snippet do código do servidor pode ser visto abaixo:
+Para o server, a ideia também era fazer a programação em Python, porém devido a questões de *cross-compile* foi utilizado c++, um snippet do código do servidor pode ser visto abaixo:
 
 Bind do servidor socket:
 
@@ -228,9 +228,9 @@ while(1)
     }
 ```
     
-## 3. Testes e adpatações
+## 3. TESTES E ADAPTAÇÕES
 
-Como foi comentado acima adpatações foram feitas para que o client pudesse rodar em python enquanto o server rodasse em c++, devido a questões de Cross-compile na toradéx.
+Como foi comentado anteriormente, adpatações foram feitas para que o client pudesse rodar em python enquanto o server rodasse em c++ devido a questões de Cross-compile na toradéx.
 
 Além disso, alguns includes de bilbiotecas para print em c++ foram alteradas para as padrões de C devido a problemas de compilação obtidos durantes os testes de cross-compile com o toolchain da toradéx. Uma vez feito isso, o cross-compile do servidor 'servidor_placa_toradex' foi bem sucedido como pode ser visto abaixo:
 
@@ -240,7 +240,7 @@ Depois do cross-compile, enviamos o arquivo via scpy e testamos rodar o servidor
 
 ![image](https://user-images.githubusercontent.com/71453516/177673313-fff2fef7-0b02-4841-b02e-af53c805b18e.png)
 
-Depois disso inputamos o IP e porta de comunicação do client com o server na interface e clicamos no botão conect
+Depois disso inserimos o IP e a porta de comunicação do client com o server na interface e clicamos no botão conect.
 
 ![image](https://user-images.githubusercontent.com/71453516/177673659-2e1cec4f-f9bd-42b9-990c-8493b169b368.png)
 
@@ -260,4 +260,4 @@ Uma vez recebidos pelo server, foram reenviados para o client e mostrados na int
 
 ![image](https://user-images.githubusercontent.com/71453516/177674456-8bc3acc1-d2ca-49d0-b798-4f17d1fb626b.png)
 
-Assim conlui-se o teste de que o projeto funciona e os arquivos finais e funcionais encontram-se na pasta arquivos_finais.
+Assim conlui-se o teste que mostra que o projeto funciona. Os arquivos finais e funcionais encontram-se na pasta arquivos_finais.
