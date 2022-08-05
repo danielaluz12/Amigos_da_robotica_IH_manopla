@@ -25,6 +25,46 @@ Como pode ser visto acima, a ideia é que o usuário, por meio da interface grá
 
 ## 2. CONFECÇÃO
 
+### DEPENDÊNCIAS
+
+As seguintes dependências foram utilizadas, com suas funções descritas juntamente:
+
+#### Dependências em python: 
+
+```
+from asyncio import open_connection
+from codecs import charmap_build
+from pickletools import uint8
+from PyQt5 import QtWidgets, uic
+import sys
+import socket  
+import numpy as np
+```
+
+#### Dependências em C++: 
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <netdb.h>
+#include<sys/socket.h>
+#include<arpa/inet.h>	
+#include <stdint.h>
+#include <unistd.h>
+#include <fcntl.h> 
+#include <errno.h> 
+#include <termios.h> 
+#include <time.h>   
+#include <iostream>
+#include <vector>
+
+```
+
 ### *FRONT-END* DA INTERFACE
 
 A interface gráfica desenvolvida pode ser vista abaixo:
