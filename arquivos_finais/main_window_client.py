@@ -6,10 +6,10 @@ import sys
 import socket  
 import numpy as np
 
-#socket server - raspberry/toradex
-#socket client - pc- onde tem interface
+#Socket server - Raspberry/Toradex
+#Socket client - Local onde a interface está sendo utlizada
 
-# Create a socket object
+# Cria um socket
 s = socket.socket()  
 
 message =np.uint8([1,2,3])
@@ -19,11 +19,13 @@ class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()
         uic.loadUi('/home/daniela/9 SEMESTRE/Embarcados/nossa interface/ui_main.ui', self)
-
+        
+        #Realiza a integração entre a interface e os servidores
+        #É feita para cada um dos elementos descritos abaixo
+        
         #button connect
-        self.button = self.findChild(QtWidgets.QPushButton, 'connect_button') # Find the button
-        self.button.clicked.connect(self.connectButtonPressed) # Remember to pass the definition/method, 
-        #not the return value!
+        self.button = self.findChild(QtWidgets.QPushButton, 'connect_button')
+        self.button.clicked.connect(self.connectButtonPressed)
 
         #inputs connect
         self.input = self.findChild(QtWidgets.QLineEdit, 'ip_input')
@@ -31,18 +33,17 @@ class Ui(QtWidgets.QMainWindow):
         self.input3 = self.findChild(QtWidgets.QLineEdit, 'portreceive_input')
         
         #button send
-        self.button2 = self.findChild(QtWidgets.QPushButton, 'send_button') # Find the button
-        self.button2.clicked.connect(self.sendButtonPressed) # Remember to pass the definition/method, 
-        #not the return value!
-
+        self.button2 = self.findChild(QtWidgets.QPushButton, 'send_button') 
+        self.button2.clicked.connect(self.sendButtonPressed) 
+        
         #inputs connect
         self.input_pos = self.findChild(QtWidgets.QLineEdit, 'position_input')
         self.input_vel = self.findChild(QtWidgets.QLineEdit, 'velocity_input')
         self.input_tor = self.findChild(QtWidgets.QLineEdit, 'torque_input')
 
         #button receive
-        self.button3 = self.findChild(QtWidgets.QPushButton, 'receive_button') # Find the button
-        self.button3.clicked.connect(self.receiveButtonPressed) # Remember to pass the definition/method, 
+        self.button3 = self.findChild(QtWidgets.QPushButton, 'receive_button') 
+        self.button3.clicked.connect(self.receiveButtonPressed) 
 
         #lcd output connect
         self.output_pos = self.findChild(QtWidgets.QLCDNumber, 'position_receive')
@@ -52,31 +53,23 @@ class Ui(QtWidgets.QMainWindow):
         self.show()
 
     
-
+    #Processo quando o botão connect é apertado
     def connectButtonPressed(self):
-        # This is executed when the button is pressed
-        #inputs from connect
-        #print('Input IP:' + self.input.text())
-        #print('Input send_port:' + self.input2.text())
-        #print('Input receive_port:' + self.input3.text())
-        #print('Input pos:' + self.input_pos.text())
-        #print('Input veloc:' + self.input_vel.text())
-        #print('Input torque:' + self.input_tor.text())
-
-        #variables ip, port_send and port_receive
-
-        ip_text = self.input.text() # can receive IP as text to use 
-        print(' IP adress:',ip_text)
+        #Atribui os valores de ip, da porta de envio e da porta de recebimento
+        #Os valores também são printados
+        ip_text = self.input.text() 
+        print(' IP adress: ',ip_text)
         port_send= int(self.input2.text())
-        print(' port_send:', port_send)
+        print(' port_send: ', port_send)
         port_receive= int(self.input3.text())
-        print(' port_receive:', port_receive)
+        print(' port_receive: ', port_receive)
         port = port_send   
         s.connect((ip_text, port))
 
-
+    #Processo quando o send conexão é apertado
     def sendButtonPressed(self):
-        #variables pos, vel, torque 
+        #Atribui os valores de posição, de velocidade e de torque
+        #Os valores também são printados
         pos= float(self.input_pos.text())
         print(' pos:', pos)
         vel= float(self.input_vel.text())
@@ -84,8 +77,8 @@ class Ui(QtWidgets.QMainWindow):
         torque= float(self.input_tor.text())
         print('torque:', torque)
 
-        #palavra de 8 bits- 2 bytes
-        #supondo  que fosse 125E    
+        #Para uma palavra de 8 bits = 2 bytes
+        #Supondo  que fosse 125E    
         pos_send= str(pos)
         vel_send= str(vel)
         torque_send= str(torque)
@@ -94,20 +87,13 @@ class Ui(QtWidgets.QMainWindow):
         #all_string=pos_send+vel_send+torque_send
         s.send(all_string.encode())
     
+    
+    #Processo quando o receive conexão é apertado
     def receiveButtonPressed(self):
-
         msg = s.recv(1024)
-  
-        # repeat as long as message
-        # string are not empty
-       
         print('Received position/velocity/torque: ' + msg.decode())
         received_msg = msg.decode()
-        split_msg= received_msg.split(" ", 2)
-        #print(split_msg[0])
-
-            # msg = s.recv(1024)
-        
+        split_msg= received_msg.split(" ", 2)     
         self.output_pos.display(split_msg[0])
         self.output_vel.display(split_msg[1])
         self.output_torque.display(split_msg[2])
