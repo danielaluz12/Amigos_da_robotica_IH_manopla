@@ -1,3 +1,11 @@
+// Amigos_da_robotica_IH_manopla
+// Repositório do projeto de Sistemas embarcados - Primeiro semestre de 2022.
+// Projeto: IHM para braço robótico de reabilitação.
+// Componentes do grupo:
+// Daniela Ramos Luz 10883832
+// Lucas Fiorotti Valim 10746686
+// Heloísa Vargas Megda de Oliveira 9912869
+
 from asyncio import open_connection
 from codecs import charmap_build
 from pickletools import uint8
